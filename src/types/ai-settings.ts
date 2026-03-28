@@ -1,7 +1,5 @@
-// AI Provider Types for LLMbench
-// Adapted from CCS-WB with two-slot provider configuration
-
 export type AIProvider =
+  | "claude-code"
   | "anthropic"
   | "openai"
   | "google"
@@ -13,6 +11,7 @@ export interface ModelConfig {
   name: string;
   contextWindow: number;
   maxOutputTokens: number;
+  supportsStreaming: boolean;
 }
 
 export interface ProviderConfig {
@@ -25,21 +24,38 @@ export interface ProviderConfig {
   defaultBaseUrl?: string;
 }
 
-// A single provider slot (Panel A or Panel B)
-export interface ProviderSlot {
-  provider: AIProvider;
-  model: string;
-  apiKey: string;
-  baseUrl?: string;
-  customModelId?: string;
-  temperature: number;
-  systemPrompt: string;
+// Claude Code preferences
+export type ResponseStyle = "prose" | "bullets";
+export type Verbosity = "short" | "medium" | "detailed";
+export type CCToolName = "Read" | "Glob" | "Grep";
+
+export interface ClaudeCodePreferences {
+  responseStyle: ResponseStyle;
+  verbosity: Verbosity;
+  allowedTools: CCToolName[];
 }
 
-// Both slots together
-export interface ProviderSlots {
-  A: ProviderSlot;
-  B: ProviderSlot;
+export const DEFAULT_CC_PREFERENCES: ClaudeCodePreferences = {
+  responseStyle: "prose",
+  verbosity: "medium",
+  allowedTools: ["Read", "Glob", "Grep"],
+};
+
+export interface AISettings {
+  provider: AIProvider;
+  model: string;
+  apiKey?: string;
+  baseUrl?: string;
+  customModelId?: string;
+  aiEnabled: boolean;
+  claudeCodeSessionId?: string;
+  ccPreferences?: ClaudeCodePreferences;
+}
+
+export interface AISettingsStorage {
+  version: string;
+  settings: AISettings;
+  lastUpdated: string;
 }
 
 export interface AIRequestConfig {
@@ -49,35 +65,9 @@ export interface AIRequestConfig {
   baseUrl?: string;
 }
 
-export interface AIValidationResult {
-  valid: boolean;
-  error?: string;
-}
-
-// Provenance metadata attached to each output
-export interface OutputProvenance {
-  provider: AIProvider;
-  model: string;
-  modelDisplayName: string;
-  temperature: number;
-  systemPrompt: string;
-  responseTimeMs: number;
-  generatedAt: string;
-}
-
-// Default slots
-export const DEFAULT_SLOT_A: ProviderSlot = {
+export const DEFAULT_AI_SETTINGS: AISettings = {
   provider: "anthropic",
   model: "claude-sonnet-4-20250514",
-  apiKey: "",
-  temperature: 1.0,
-  systemPrompt: "",
-};
-
-export const DEFAULT_SLOT_B: ProviderSlot = {
-  provider: "openai",
-  model: "gpt-4o",
-  apiKey: "",
-  temperature: 1.0,
-  systemPrompt: "",
+  aiEnabled: false,
+  ccPreferences: DEFAULT_CC_PREFERENCES,
 };

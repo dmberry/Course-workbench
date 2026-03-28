@@ -149,18 +149,3 @@
 .cm-content * {
   text-decoration: none !important;
 }
-
-/* Annotation gutter animation */
-@keyframes discovery-pulse {
-  0% { opacity: 0; transform: scale(0.5); }
-  30% { opacity: 1; transform: scale(1.2); }
-  60% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1); }
-}
-.cm-annotate-gutter-plus.discovery-animate {
-  display: inline !important;
-  animation: discovery-pulse 0.6s ease-out forwards;
-}
-.cm-annotate-gutter-number.discovery-animate {
-  display: none !important;
-}

@@ -1,7 +1,12 @@
 "use client";
 
-import { ProviderSettingsProvider } from "@/context/ProviderSettingsContext";
+import { WorkspaceProvider } from "@/context/WorkspaceContext";
+import { AISettingsProvider } from "@/context/AISettingsContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <ProviderSettingsProvider>{children}</ProviderSettingsProvider>;
+  return (
+    <AISettingsProvider>
+      <WorkspaceProvider>{children}</WorkspaceProvider>
+    </AISettingsProvider>
+  );
 }

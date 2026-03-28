@@ -20,9 +20,9 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "LLMbench - Comparative Close Reading of AI Outputs",
+  title: "Course Workbench - Comparative Teaching and Content Workspace",
   description:
-    "A tool for humanistic close reading and annotation of LLM outputs side by side.",
+    "A workspace for Canvas course content, institutional profiles, and comparative AI-assisted drafting.",
 };
 
 export default function RootLayout({

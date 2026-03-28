@@ -2,7 +2,7 @@
 
 **Version:** 1.0
 **Last Updated:** 2026-02-07
-**LLMbench Version:** 0.2.0
+**Course Workbench Version:** 0.2.0
 
 Edit this file to customise the available AI models. Each provider section lists models in the format:
 - `model-id` - Display Name
